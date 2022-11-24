@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import img from '../../assets/images/login/Mobile login-bro.png';
+import img from "../../assets/images/login/Mobile login-bro.png";
 
 const SignUp = () => {
   return (
     <div className="hero bg-base-200">
       <div className="hero-content flex-col lg:flex-row">
         <div className="text-center lg:text-left">
-            <img className="w-[800px]" src={img} alt="" />
+          <img className="w-[800px]" src={img} alt="" />
         </div>
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
           <div className="card-body">
@@ -35,16 +35,21 @@ const SignUp = () => {
               <label className="label">
                 <span className="label-text">Photo</span>
               </label>
-              <input type="file" className="file-input file-input-bordered w-full max-w-xs" />
+              <input
+                type="file"
+                className="file-input file-input-bordered w-full max-w-xs"
+              />
             </div>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">What is your purpose?</span>
               </label>
-              <select name="slot" className="select select-bordered w-full mb-6">
-              <option selected value='buyer'>Buyer</option>
-              <option value='seller'>Seller</option>
-            </select>
+              <select className="select select-bordered w-full max-w-xs">
+                <option selected>
+                  Buyer
+                </option>
+                <option>Seller</option>
+              </select>
             </div>
             <div className="form-control">
               <label className="label">
