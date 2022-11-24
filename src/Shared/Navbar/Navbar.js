@@ -37,7 +37,7 @@ const Navbar = () => {
             </label>
             <ul
               tabIndex={1}
-              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-compact font-semibold dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
             >
               {menuItem}
             </ul>
@@ -47,7 +47,7 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal p-0">{menuItem}</ul>
+          <ul className="menu menu-horizontal p-0 font-semibold">{menuItem}</ul>
         </div>
         <label htmlFor="dashboard-drawer" tabIndex={2} className="btn btn-ghost lg:hidden">
               <svg
