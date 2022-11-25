@@ -3,7 +3,6 @@ import toast from 'react-hot-toast';
 import { FaGoogle } from 'react-icons/fa';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import img from "../../assets/images/login/Mobile login-bro.png";
-import Loading from '../../components/Loading/Loading';
 import { AuthContext } from '../../Context/AuthContext';
 
 const LogIn = () => {
@@ -86,7 +85,9 @@ const LogIn = () => {
               </label>
             </div>
             <div className="form-control mt-6">
-              <button className="btn btn-primary">{ loading ? <Loading></Loading> : 'Login' }</button>
+              {
+                loading ? <button className="btn btn-primary loading">loading</button> : <button type='submit' className="btn btn-primary">Log in</button>
+              }
             </div>
             </form>
             <p className="text-center m-3 ">New to Doctors Portal? <Link className="text-primary btn btn-link font-bold" to='/signup'>Create new account</Link></p>

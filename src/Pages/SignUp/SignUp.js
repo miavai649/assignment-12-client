@@ -3,7 +3,6 @@ import toast from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import img from "../../assets/images/login/Mobile login-bro.png";
-import Loading from "../../components/Loading/Loading";
 import { AuthContext } from "../../Context/AuthContext";
 
 const SignUp = () => {
@@ -135,7 +134,9 @@ const SignUp = () => {
               />
             </div>
             <div className="form-control mt-6">
-              <button type="submit" className="btn btn-primary">{ loading ? <Loading></Loading> : 'Sign Up' }</button>
+            {
+                loading ? <button className="btn btn-primary loading">loading</button> : <button type='submit' className="btn btn-primary">Sign Up</button>
+              }
             </div>
           </form>
           <p className="text-center">
