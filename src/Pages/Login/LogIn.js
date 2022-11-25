@@ -1,11 +1,17 @@
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { FaGoogle } from 'react-icons/fa';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import img from "../../assets/images/login/Mobile login-bro.png";
+import Loading from '../../components/Loading/Loading';
 import { AuthContext } from '../../Context/AuthContext';
 
 const LogIn = () => {
-    const { signin } = useContext(AuthContext);
+  const { signin, loading, setLoading, googleAuthentication } = useContext(AuthContext);
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  const from = location.state?.from?.pathname || '/'
 
     const handleLogIn = (e) => {
         e.preventDefault()
@@ -19,12 +25,28 @@ const LogIn = () => {
             console.log(user)
             form.reset()
             toast.success('Logged in Successfully')
+              setLoading(false)
+              navigate(from, {replace: true})
             })
             .catch(err => {
             console.log(err.message)
             toast.error(err.message)
+            setLoading(false)
         })
-    }
+  }
+  
+  const handleGoogleLogIn = () => {
+    googleAuthentication()
+    .then(result => {
+      const user = result.user
+      console.log('current', user)
+      navigate(from, {replace: true})
+    })
+      .catch(err => {
+        console.log(err)
+        setLoading(false)
+      })
+  }
 
     return (
         <div className="hero bg-base-200">
@@ -64,9 +86,15 @@ const LogIn = () => {
               </label>
             </div>
             <div className="form-control mt-6">
-              <button className="btn btn-primary">Login</button>
+              <button className="btn btn-primary">{ loading ? <Loading></Loading> : 'Login' }</button>
             </div>
-          </form>
+            </form>
+            <p className="text-center m-3 ">New to Doctors Portal? <Link className="text-primary btn btn-link font-bold" to='/signup'>Create new account</Link></p>
+        <div className="divider">OR</div>
+        <button onClick={handleGoogleLogIn} className="btn btn-primary mx-14 my-8">
+          <FaGoogle className="mr-3 text-xl"></FaGoogle>
+          CONTINUE WITH GOOGLE
+        </button>
         </div>
       </div>
     </div>

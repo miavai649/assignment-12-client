@@ -1,12 +1,15 @@
 import React, { useContext } from "react";
 import toast from "react-hot-toast";
+import { FaGoogle } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
 import img from "../../assets/images/login/Mobile login-bro.png";
 import Loading from "../../components/Loading/Loading";
 import { AuthContext } from "../../Context/AuthContext";
 
 const SignUp = () => {
   const imgHostKey = process.env.REACT_APP_imagebb_key;
-  const { createUser, updateUserProfile, loading, setLoading } = useContext(AuthContext);
+  const { createUser, updateUserProfile, loading, setLoading, googleAuthentication } = useContext(AuthContext);
+  const navigate = useNavigate()
 
   const handleSignUp = (e) => {
     e.preventDefault()
@@ -36,6 +39,8 @@ const SignUp = () => {
           updateUserProfile(name, imgData.data.url)
             .then(() => {
             toast.success('Signed up Successfully')
+            navigate('/')
+            setLoading(false)
           })
           .catch(err => console.log(err))
         })
@@ -45,17 +50,31 @@ const SignUp = () => {
             toast.error(err.message)
           })
       })
+    .catch(err => console.log(err))
   }
 
+  const handleGoogleSignUp = () => {
+    googleAuthentication()
+    .then(result => {
+      const user = result.user
+      console.log('current', user)
+      navigate('/')
+    })
+      .catch(err => {
+        console.log(err)
+        setLoading(false)
+      })
+  }
  
   return (
     <div className="hero bg-base-200">
-      {loading && <Loading></Loading>}
+      <div>
+      </div>
       <div className="hero-content flex-col lg:flex-row">
         <div className="text-center lg:text-left">
-          <img className="w-[800px]" src={img} alt="" />
+          <img className="w-full" src={img} alt="" />
         </div>
-        <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+        <div className="card my-16 flex-shrink-0 w-1/2 shadow-2xl bg-base-100">
         <h1 className="text-5xl text-center font-bold mt-4">Sign Up</h1>
           <form onSubmit={handleSignUp} className="card-body">
             <div className="form-control">
@@ -116,9 +135,20 @@ const SignUp = () => {
               />
             </div>
             <div className="form-control mt-6">
-              <button type="submit" className="btn btn-primary">Sign UP</button>
+              <button type="submit" className="btn btn-primary">{ loading ? <Loading></Loading> : 'Sign Up' }</button>
             </div>
           </form>
+          <p className="text-center">
+          Already have an account?{" "}
+          <Link className="text-primary btn btn-link font-bold" to="/login">
+            Log In
+          </Link>
+        </p>
+        <div className="divider">OR</div>
+        <button onClick={handleGoogleSignUp} className="btn btn-primary mx-14 my-8">
+          <FaGoogle className="mr-3 text-xl"></FaGoogle>
+          CONTINUE WITH GOOGLE
+        </button>
         </div>
       </div>
     </div>
