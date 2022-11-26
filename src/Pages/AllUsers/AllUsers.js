@@ -26,7 +26,7 @@ const AllUsers = () => {
                 toast.success('Make admin successfully')
                 refetch()
             }
-        })
+            })
     }
 
     return (

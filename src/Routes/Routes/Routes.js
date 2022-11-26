@@ -7,6 +7,7 @@ import Home from "../../Pages/Home/Home/Home";
 import LogIn from "../../Pages/Login/LogIn";
 import SignUp from "../../Pages/SignUp/SignUp";
 import DisplayError from "../../Shared/DisplayError/DisplayError";
+import AdminRoute from "../Admin/AdminRoute";
 
 export const router = createBrowserRouter([
     {
@@ -39,7 +40,7 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: '/dashboard',
-                element: <AllUsers></AllUsers>
+                element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
             }
         ]
     }
