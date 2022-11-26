@@ -48,7 +48,7 @@ const SignUp = () => {
             .then(() => {
             toast.success('Signed up Successfully')
             setLoading(false)
-            saveUser(name, email, option)
+            saveUser(name, email, option, imgData.data.url)
           })
           .catch(err => console.log(err))
         })
@@ -67,7 +67,7 @@ const SignUp = () => {
       const user = result.user
       const option = 'Buyer';
       // console.log(user.displayName, user.email, option)
-      saveUser(user.displayName, user.email, option)
+      saveUser(user.displayName, user.email, option, user.photoURL)
       
     })
       .catch(err => {
@@ -77,8 +77,8 @@ const SignUp = () => {
   }
 
  
-  const saveUser = (name, email, role) => {
-    const user = {name, email, role}
+  const saveUser = (name, email, role, image) => {
+    const user = {name, email, role, image}
     fetch('http://localhost:5000/users', {
       method: 'POST',
       headers: {
