@@ -1,16 +1,23 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { FaGoogle } from 'react-icons/fa';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import img from "../../assets/images/login/Mobile login-bro.png";
 import { AuthContext } from '../../Context/AuthContext';
+import useToken from '../../hooks/useToken';
 
 const LogIn = () => {
   const { signin, loading, setLoading, googleAuthentication } = useContext(AuthContext);
   const navigate = useNavigate()
   const location = useLocation()
-
+  const [loginUserEmail, setLoginUserEmail] = useState('')
+  const [token] = useToken(loginUserEmail)
   const from = location.state?.from?.pathname || '/'
+  useEffect(() => {
+    if (token) {
+      navigate(from, {replace: true})
+    }
+  },[token, from, navigate])
 
     const handleLogIn = (e) => {
         e.preventDefault()
@@ -22,10 +29,10 @@ const LogIn = () => {
             .then(result => {
             const user = result.user
             console.log(user)
+            setLoginUserEmail(email)
             form.reset()
             toast.success('Logged in Successfully')
               setLoading(false)
-              navigate(from, {replace: true})
             })
             .catch(err => {
             console.log(err.message)
@@ -38,14 +45,19 @@ const LogIn = () => {
     googleAuthentication()
     .then(result => {
       const user = result.user
-      console.log('current', user)
-      navigate(from, {replace: true})
+      console.log(user)
+      if (user?.email) {
+        
+        setLoginUserEmail(user.email)
+      }
     })
       .catch(err => {
         console.log(err)
         setLoading(false)
       })
   }
+
+  
 
     return (
         <div className="hero bg-base-200">

@@ -1,14 +1,23 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import img from "../../assets/images/login/Mobile login-bro.png";
 import { AuthContext } from "../../Context/AuthContext";
+import useToken from "../../hooks/useToken";
 
 const SignUp = () => {
   const imgHostKey = process.env.REACT_APP_imagebb_key;
   const { createUser, updateUserProfile, loading, setLoading, googleAuthentication } = useContext(AuthContext);
   const navigate = useNavigate()
+  const [userEmail, setUserEmail] = useState('')
+  const [token] = useToken(userEmail)
+
+  useEffect(() => {
+    if (token) {
+      navigate('/')
+    }
+  },[token, navigate])
 
   const handleSignUp = (e) => {
     e.preventDefault()
@@ -38,8 +47,8 @@ const SignUp = () => {
           updateUserProfile(name, imgData.data.url)
             .then(() => {
             toast.success('Signed up Successfully')
-            navigate('/')
             setLoading(false)
+            saveUser(name, email, option)
           })
           .catch(err => console.log(err))
         })
@@ -56,15 +65,36 @@ const SignUp = () => {
     googleAuthentication()
     .then(result => {
       const user = result.user
-      console.log('current', user)
-      navigate('/')
+      const option = 'Buyer';
+      // console.log(user.displayName, user.email, option)
+      saveUser(user.displayName, user.email, option)
+      
     })
       .catch(err => {
         console.log(err)
         setLoading(false)
       })
   }
+
  
+  const saveUser = (name, email, role) => {
+    const user = {name, email, role}
+    fetch('http://localhost:5000/users', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    })
+    .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        setUserEmail(email)
+      })
+  }
+
+  
+
   return (
     <div className="hero bg-base-200">
       <div>
@@ -116,10 +146,10 @@ const SignUp = () => {
                 <span className="label-text">What is your purpose?</span>
               </label>
               <select name="option" className="select select-bordered w-full max-w-xs">
-                <option value='buyer' defaultValue='buyer'>
+                <option value='Buyer' defaultValue='buyer'>
                   Buyer
                 </option>
-                <option value='seller'>Seller</option>
+                <option value='Seller'>Seller</option>
               </select>
             </div>
             <div className="form-control">

@@ -18,7 +18,7 @@ const Dashboard = () => {
           <ul className="menu p-4 w-80 text-base-content">
             {/* Sidebar content here */}
             <li>
-              <Link to='/dashboard'>My Appointments</Link>
+              <Link to='/dashboard'>All Users</Link>
             </li>
           </ul>
         </div>
