@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import AllSellersCard from './AllSellersCard';
 
 const AllSellers = () => {
@@ -20,13 +21,30 @@ const AllSellers = () => {
         .then(data => setSellers(data))
     },[])
     
+    const handleDelete = id => {
+        const proceed = window.confirm('Do you want to delete this seller?')
+        if (proceed) {
+            fetch(`http://localhost:5000/users/${id}`, {
+                method: 'DELETE'
+            })
+            .then(res => res.json())
+                .then(data => {
+                console.log(data)
+                if (data.deletedCount > 0) {
+                    toast.error('User Deleted')
+                    const remaining = sellers.filter(buyer => buyer._id !== id)
+                    setSellers(remaining)
+                }
+            })
+        }
+    }
 
     return (
         <div className='p-14'>
-        <h2 className='text-3xl text-center mb-6 font-bold'>All Buyers: { sellers.length }</h2>
+        <h2 className='text-3xl text-center mb-6 font-bold'>All Sellers: { sellers.length }</h2>
         <div className='grid gap-8'>
             {
-               sellers.map(seller => <AllSellersCard key={seller._id} seller={seller}></AllSellersCard>)
+               sellers.map(seller => <AllSellersCard key={seller._id} handleDelete={handleDelete} seller={seller}></AllSellersCard>)
             }
        </div>
     </div>
