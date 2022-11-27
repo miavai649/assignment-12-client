@@ -1,27 +1,63 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
+import { AuthContext } from '../../Context/AuthContext';
 
 const AddProduct = () => {
+
+    const imgHostKey = process.env.REACT_APP_imagebb_key;
+    const { user } = useContext(AuthContext);
 
     const handleSubmit = (e) => {
         e.preventDefault()
         const form = e.target;
-        const productInfo = {
-            
-            name: form.yourName.value,
-            productName: form.productName.value,
-            photo: form.image.files[0],
-            condition: form.condition.value,
-            resellPrice: form.resellPrice.value,
-            originalPrice: form.originalPrice.value,
-            phoneNumber: form.phoneNumber.value,
-            location: form.location.value,
-            category: form.category.value,
-            year: form.year.value,
-            description: form.description.value
-        }
+        const image = form.image.files[0];
+
+        const formData = new FormData()
+        formData.append('image', image)
+
+        const url = `https://api.imgbb.com/1/upload?key=${imgHostKey}`
+
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+        .then(res => res.json())
+            .then(imgData => {
+                const productInfo = {
+                    name: form.yourName.value,
+                    productName: form.productName.value,
+                    condition: form.condition.value,
+                    photo: imgData.data.url,
+                    resellPrice: form.resellPrice.value,
+                    originalPrice: form.originalPrice.value,
+                    phoneNumber: form.phoneNumber.value,
+                    location: form.location.value,
+                    user: user,
+                    category: form.category.value,
+                    year: form.year.value,
+                    description: form.description.value
+                }
+                
+                fetch('http://localhost:5000/addProduct', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(productInfo)
+                })
+                .then(res => res.json())
+                    .then(data => {
+                    console.log(data)
+                    toast.success('Product added successfully')
+                    form.reset()
+                })
+                .catch(err => console.error(err))
+        })
+
+       
         
 
-        console.log(productInfo)
+        
     }
 
     return (
@@ -125,7 +161,7 @@ const AddProduct = () => {
                 Bedroom
                 </option>
                 <option value='Office'>Office</option>
-                <option value='Living room'>Living room</option>
+                <option value='Kitchen'>Kitchen</option>
               </select>
             </div>
             <div className="form-control">
