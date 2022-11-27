@@ -45,7 +45,7 @@ export const router = createBrowserRouter([
         errorElement: <DisplayError></DisplayError>,
         children: [
             {
-                path: '/dashboard/allUser',
+                path: '/dashboard',
                 element: <AllUsers></AllUsers>
             },
             {

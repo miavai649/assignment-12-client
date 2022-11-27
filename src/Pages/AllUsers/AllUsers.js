@@ -25,13 +25,16 @@ const AllUsers = () => {
             if (data.modifiedCount > 0) {
                 toast.success('Make admin successfully')
                 refetch()
-            }
+              }
+            else {
+              toast.error(data.message)
+              }
             })
     }
 
     return (
         <div className="p-14">
-        <h2 className="text-2xl font-bold mb-6">All Users: { users.length }</h2>
+        <h2 className="text-3xl text-center font-bold mb-6">All Users: { users.length }</h2>
       <div className="overflow-x-auto">
         <table className="table w-full">
           <thead>

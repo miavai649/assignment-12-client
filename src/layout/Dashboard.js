@@ -28,7 +28,7 @@ const Dashboard = () => {
           <ul className="menu p-4 w-80 text-base-content">
             {/* Sidebar content here */}
             <li>
-              <Link to="/dashboard/allUser">All Users</Link>
+              <Link to="/dashboard">All Users</Link>
             </li>
             {isAdmin && (
               <>
