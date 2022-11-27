@@ -1,8 +1,8 @@
 import React from "react";
 import { FaTrashAlt } from "react-icons/fa";
 
-const AllBuyersCard = ({ buyer }) => {
-  const { image, name, email, role } = buyer;
+const AllBuyersCard = ({ buyer, handleDelete }) => {
+  const { _id, image, name, email, role } = buyer;
   return (
     <div className="card w-1/2 mx-auto card-side bg-base-100 shadow-xl">
       <figure>
@@ -13,7 +13,7 @@ const AllBuyersCard = ({ buyer }) => {
         <p>Email: {email}</p>
         <p>Role: <strong>{role}</strong></p>
         <div className="card-actions justify-end">
-          <button className="btn btn-primary"><FaTrashAlt></FaTrashAlt></button>
+          <button onClick={()=>handleDelete(_id)} className="btn btn-primary"><FaTrashAlt></FaTrashAlt></button>
         </div>
       </div>
     </div>
