@@ -6,9 +6,11 @@ import AllBuyers from "../../Pages/AllBuyers/AllBuyers";
 import AllSellers from "../../Pages/AllSellers/AllSellers";
 import AllUsers from "../../Pages/AllUsers/AllUsers";
 import Blog from "../../Pages/Blog/Blog";
+import CategoryProducts from "../../Pages/CategoryProducts/CategoryProducts";
 import Home from "../../Pages/Home/Home/Home";
 import LogIn from "../../Pages/Login/LogIn";
 import MyOrders from "../../Pages/MyOrders/MyOrders";
+import MyProducts from "../../Pages/MyProducts/MyProducts";
 import SignUp from "../../Pages/SignUp/SignUp";
 import DisplayError from "../../Shared/DisplayError/DisplayError";
 import AdminRoute from "../Admin/AdminRoute";
@@ -37,6 +39,10 @@ export const router = createBrowserRouter([
                 path: '/login',
                 element: <LogIn></LogIn>
             },
+            {
+                path: '/:name',
+                element: <CategoryProducts></CategoryProducts>
+            },
         ]
     },
     {
@@ -63,6 +69,10 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/myOrders',
                 element: <BuyerRoute><MyOrders></MyOrders></BuyerRoute>
+            },
+            {
+                path: '/dashboard/myProduct',
+                element: <SellerRoute><MyProducts></MyProducts></SellerRoute>
             },
         ]
     }

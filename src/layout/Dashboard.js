@@ -45,6 +45,9 @@ const Dashboard = () => {
                 <li>
                   <Link to="/dashboard/addProduct">Add Product</Link>
                 </li>
+                <li>
+                  <Link to="/dashboard/myProduct">My Product</Link>
+                </li>
               </>
             )}
             {isBuyer && (
