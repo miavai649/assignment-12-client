@@ -7,7 +7,6 @@ const CategoryProducts = () => {
   const [bookingProduct, setBookingProduct] = useState(null);
 
   const products = useLoaderData();
-  console.log(products);
 
   return (
     <div>
