@@ -1,15 +1,16 @@
 import React, { useContext } from "react";
+import { FaUserCircle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthContext";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleLogOut = () => {
     logout()
       .then(() => {
-        navigate('/login')
+        navigate("/login");
       })
       .catch((err) => console.error(err));
   };
@@ -31,11 +32,15 @@ const Navbar = () => {
           <li>
             <button onClick={handleLogOut}>Sign Out</button>
           </li>
+          <img className="w-8 rounded-full ml-3" title={user?.displayName} src={user?.photoURL} alt="" />
         </>
       ) : (
-        <li>
-          <Link to="/login">Login</Link>
-        </li>
+        <>
+          <li>
+            <Link to="/login">Login</Link>
+          </li>
+          <FaUserCircle className="text-neutral text-3xl mt-2"></FaUserCircle>
+        </>
       )}
     </React.Fragment>
   );
