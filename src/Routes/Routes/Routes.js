@@ -15,6 +15,7 @@ import SignUp from "../../Pages/SignUp/SignUp";
 import DisplayError from "../../Shared/DisplayError/DisplayError";
 import AdminRoute from "../Admin/AdminRoute";
 import BuyerRoute from "../Buyer/BuyerRoute";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import SellerRoute from "../Seller/SellerRoute";
 
 export const router = createBrowserRouter([
@@ -41,7 +42,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/:name',
-                element: <CategoryProducts></CategoryProducts>,
+                element: <PrivateRoute><CategoryProducts></CategoryProducts></PrivateRoute>,
                 loader: ({params}) => fetch(`http://localhost:5000/${params.name}`)
             },
         ]
