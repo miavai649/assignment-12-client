@@ -43,7 +43,7 @@ export const router = createBrowserRouter([
             {
                 path: '/:name',
                 element: <PrivateRoute><CategoryProducts></CategoryProducts></PrivateRoute>,
-                loader: ({params}) => fetch(`http://localhost:5000/${params.name}`)
+                loader: ({params}) => fetch(`https://assignment-12-server-sigma.vercel.app/${params.name}`)
             },
         ]
     },

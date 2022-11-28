@@ -12,7 +12,7 @@ const AboutUs = () => {
               About Us 
             </h1>
             <p className="py-6">
-              This is a place where you get a wide choice of rich delicious cakes for all occasions. My aim to serve the most creative and mouth-watering cakes, to help celebrate your events ina special way! Pick a design you like, and then choose from delectable flavours. You can then sit back and relax & expect a wonderful cake to arrive at your desired location, on your chosen date and time
+              This is our Fantastic Furniture website where you can buy or sell your well furnished products and you can discover our products for every space, style and budget. People can buy and sell best quality of product in the perfect reasonable price. For every person, they can easily comfortable to this website because, It's very handy and classy for all of them. So, you can experience a wonderful products from us and feels like a winner
             </p>
           </div>
         </div>

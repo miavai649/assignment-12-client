@@ -9,14 +9,14 @@ const AllSellers = () => {
     // const { data: sellers = [] } = useQuery({
     //     queryKey: ['sellers'],
     //     queryFn: async () => {
-    //         const res = await fetch('http://localhost:5000/users/sellers')
+    //         const res = await fetch('https://assignment-12-server-sigma.vercel.app/users/sellers')
     //         const data = await res.json()
     //         return data;
     //     }
     // })
 
     useEffect(() => {
-        fetch('http://localhost:5000/users/sellers')
+        fetch('https://assignment-12-server-sigma.vercel.app/users/sellers')
         .then(res => res.json())
         .then(data => setSellers(data))
     },[])
@@ -24,7 +24,7 @@ const AllSellers = () => {
     const handleDelete = id => {
         const proceed = window.confirm('Do you want to delete this seller?')
         if (proceed) {
-            fetch(`http://localhost:5000/users/${id}`, {
+            fetch(`https://assignment-12-server-sigma.vercel.app/users/${id}`, {
                 method: 'DELETE'
             })
             .then(res => res.json())

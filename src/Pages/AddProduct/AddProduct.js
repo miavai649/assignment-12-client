@@ -41,7 +41,7 @@ const AddProduct = () => {
                     email: user?.email
                 }
                 
-                fetch('http://localhost:5000/addProduct', {
+                fetch('https://assignment-12-server-sigma.vercel.app/addProduct', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'

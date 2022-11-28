@@ -7,7 +7,7 @@ const AllBuyers = () => {
     const [buyers, setBuyers] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:5000/users/buyers')
+        fetch('https://assignment-12-server-sigma.vercel.app/users/buyers')
         .then(res => res.json())
         .then(data => setBuyers(data))
     },[])
@@ -15,7 +15,7 @@ const AllBuyers = () => {
     const handleDelete = id => {
         const proceed = window.confirm('Do you want to delete this buyer ?')
         if (proceed) {
-            fetch(`http://localhost:5000/users/${id}`, {
+            fetch(`https://assignment-12-server-sigma.vercel.app/users/${id}`, {
                 method: 'DELETE'
             })
             .then(res => res.json())
