@@ -6,15 +6,6 @@ const AllBuyers = () => {
 
     const [buyers, setBuyers] = useState([])
 
-    // const { data: buyers = [] } = useQuery({
-    //     queryKey: ['buyers'],
-    //     queryFn: async () => {
-    //         const res = await fetch('http://localhost:5000/users/buyers')
-    //         const data = await res.json()
-    //         return data;
-    //     }
-    // })
-
     useEffect(() => {
         fetch('http://localhost:5000/users/buyers')
         .then(res => res.json())

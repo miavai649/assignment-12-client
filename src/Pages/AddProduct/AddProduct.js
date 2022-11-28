@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthContext';
 
 const AddProduct = () => {
 
     const imgHostKey = process.env.REACT_APP_imagebb_key;
     const { user } = useContext(AuthContext);
+    const navigate = useNavigate('')
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -35,7 +37,8 @@ const AddProduct = () => {
                     user: user,
                     category: form.category.value,
                     year: form.year.value,
-                    description: form.description.value
+                    description: form.description.value,
+                    email: user?.email
                 }
                 
                 fetch('http://localhost:5000/addProduct', {
@@ -50,6 +53,7 @@ const AddProduct = () => {
                     console.log(data)
                     toast.success('Product added successfully')
                     form.reset()
+                      navigate('/dashboard/myProduct')
                 })
                 .catch(err => console.error(err))
         })
